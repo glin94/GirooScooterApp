@@ -1,0 +1,134 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/app.css">
+
+    </style>
+    <title>Site</title>
+
+</head>
+
+<body>
+    <div class="container pt-5 pl-5" id="app">
+        <div class="row mb-3">
+            <div class="col">
+                <h1 class="col-4 text-center">GiroScooters</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="search">Find your car</label>
+                    <input type="text" class="form-control" id="search" placeholder="Name.." v-model="search">
+                    <hr>
+
+                    <ul class="list-group">
+                        <li v-for="(car,index) in filteredCars" v-on:click="selectCar(index)" class="list-group-item list-group-item-action pointer"
+                            :class="{'active':selectedCarIndex===index}">{{car.name}}-{{car.model}}</li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 pt-4 pl-5">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2>{{car.name}}</h2>
+                        <img :src="car.image" :alt="car.name" class="rounded detailed-car-image">
+                    </div>
+                    <div class="col-md-7 pt-2">
+                        <h5>GiroScooter details</h5>
+                        <ul>
+                            <li>Model-
+                                <strong>{{car.model}}</strong>
+                            </li>
+                            <li>Year-
+                                <strong>{{car.year}}</strong>
+                            </li>
+                            <li>Owner-
+                                <strong>{{car.owner}}</strong>
+                            </li>
+                        </ul>
+                        <div class="phone-block">
+                            <transition name="phone">
+                            
+                          
+                            <p v-if="phoneVisibility">{{car.phone}}</p>
+                        </transition>
+                        </div>
+
+                        <button @click="phoneVisibility=!phoneVisibility" class="btn btn-outline-succes mr-3">{{phoneBtnText}}</button>
+                        <button class="btn btn-primary" @click="modalVisibility=true">Buy</buttn>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row pt-3" v-if="logs.length !== 0">
+            <div class="col-md-12">
+                <ul class="list-group">
+                        <li 
+                        v-for="log in logs"
+                        class="list-group-item"
+                        :class="{
+                        'list-group-item-success':log.type==='ok',
+                        'list-group-item-danger' :log.type==='cnl'}"
+                        >
+                        {{log.text}} {{log.date | date}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <transition name="modal">
+        <div class="modal fade show" v-if="modalVisibility" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Купить товар</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="modalVisibility=false">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Curent car-
+                            <strong>{{car.name}}</strong>
+                        </p>
+                        <ul>
+                            <li>Model-
+                                <strong>{{car.model}}</strong>
+                            </li>
+                            <li>Year-
+                                <strong>{{car.year}}</strong>
+                            </li>
+                            <li>Owner-
+                                <strong>{{car.owner}}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelOrder">Cancel</button>
+                        <button type="button" class="btn btn-primary" @click="newOrder">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+    <transition name="fade">
+        <div class="modal-backdrop fade show" v-if="modalVisibility"></div>
+    </transition>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="js/script.js"></script>
+    </form>
+</body>
+
+</html>
