@@ -1,5 +1,18 @@
 {
+  "short_name": "Scooter App",
+  "name": "Giroo Scooter App",
+  "icons": [
+    {
+      "src": "/images/icons.png",
+      "type": "image/png",
+      "sizes": "299x299"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#3367D6",
   "display": "standalone",
-  "gcm_sender_id": "330561634409",
-  "gcm_user_visible_only": true
+  "scope": "/",
+  "orientation": "landscape",
+  "theme_color": "#3367D6"
+  
 }

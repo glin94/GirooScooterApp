@@ -1,19 +1,40 @@
-<html lang="en">
+<html lang="ru">
 
 <head>
+        <title>Scooter App</title>
+        <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+     
+        <link rel="stylesheet" href="css/app.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="css/app.css">
-
-    <script src="https://cdn.gravitec.net/storage/64b91d715d288363fbb7a7368fac3010/client.js" async></script>
-    <title>Site</title>
-
+         <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(function(registration) {
+                console.log('Registration successful, scope is:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('Service worker registration failed, error:', error);
+            });
+        }
+    </script>
+   <script>
+       let deferredPrompt;
+   window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+      });
+      window.addEventListener('appinstalled', (evt) => {
+  app.logEvent('a2hs', 'installed');
+});
+      </script>
 </head>
 
 <body>
